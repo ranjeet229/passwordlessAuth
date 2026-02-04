@@ -22,7 +22,7 @@ class AuthViewModel : ViewModel() {
     private var sessionStartTime: Long = 0
 
     fun sendOtp(email: String) {
-        if (email.isBlank()) return // Basic validation
+        if (email.isBlank()) return //this is the basic validation
         
         OtpManager.generateOtp(email)
         _uiState.value = AuthState.Otp(email = email)
@@ -94,7 +94,7 @@ class AuthViewModel : ViewModel() {
         Timber.d("User logged out")
         val currentState = _uiState.value
         if (currentState is AuthState.Session) {
-             OtpManager.clearOtp(currentState.email) // Clean up
+             OtpManager.clearOtp(currentState.email) // Clean up the otp
         }
         _uiState.value = AuthState.Login
     }

@@ -12,14 +12,15 @@ data class OtpData(
 object OtpManager {
 
     private val otpStore = mutableMapOf<String, OtpData>()
-    private const val OTP_validity_MS = 60_000L // 60 seconds
+    private const val OTP_validity_MS = 60_000L // for  60 seconds then logout ho jayega
+
     private const val MAX_ATTEMPTS = 3
 
     fun generateOtp(email: String): String {
         val otp = (100000..999999).random().toString()
         val expiryTime = System.currentTimeMillis() + OTP_validity_MS
         
-        // Reset attempts and store new OTP
+        // Reset attempts then restore karega ...
         otpStore[email] = OtpData(otp, expiryTime, 0)
         
         Timber.d("OTP generated for $email: $otp") 
